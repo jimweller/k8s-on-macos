@@ -4,11 +4,12 @@
 
 # VM type: "qemu" or "vz" (on macOS 13 and later)
 vmType: qemu
+arch: "x86_64"
 
 # OpenStack-compatible (cloud-init) disk image.
 images:
-- location: "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-arm64.img"
-  arch: "aarch64"
+- location: "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
+  arch: "x86_64"
 
 # Virtual Machine (VM) specification (CPUs, RAM and Disk)
 cpus: 2
@@ -31,7 +32,8 @@ portForwards:
 # Use /var/tmp directory on macOS host as local-path-provisioner add-on storage
 mountType: 9p
 mounts:
-- location: "/opt/lima/storage"
+#- location: "/opt/lima/storage"
+- location: "/Users/jim.weller/tmp"
   mountPoint: "/storage"
   writable: true
   9p:
@@ -111,8 +113,8 @@ provision:
     #!/bin/bash
     set -eux -o pipefail
 
-    K8S_REPO=v1.31
-    K8S_VERSION=1.31.1
+    K8S_REPO=v1.32
+    K8S_VERSION=1.32.3
 
     apt-get update
     apt-get install -y apt-transport-https ca-certificates curl gpg ipvsadm jq

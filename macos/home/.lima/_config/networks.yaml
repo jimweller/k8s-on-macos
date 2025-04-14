@@ -11,9 +11,9 @@
 # instead of /var etc.
 paths:
 # socketVMNet requires Lima >= 0.12 .
-#  socketVMNet: "/opt/socket_vmnet/bin/socket_vmnet"
+  socketVMNet: "/opt/socket_vmnet/bin/socket_vmnet"
 #  socketVMNet: "/opt/homebrew/opt/socket_vmnet/bin/socket_vmnet"
-  socketVMNet: "/opt/homebrew/Cellar/socket_vmnet/1.2.1/bin/socket_vmnet"
+#  socketVMNet: "/opt/homebrew/Cellar/socket_vmnet/1.2.1/bin/socket_vmnet"
   varRun: /private/var/run/lima
   sudoers: /private/etc/sudoers.d/lima
 

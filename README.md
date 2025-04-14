@@ -56,6 +56,35 @@ Reload macOS DHCP daeamon.
 ```
 sudo /bin/launchctl kickstart -kp system/com.apple.bootpd
 ```
+
+### Static IPs
+
+https://documentation.ubuntu.com/server/explanation/networking/configuring-networks/index.html
+
+/etc/netplan/0-cloud-init.yaml
+
+```
+network:
+  version: 2
+  ethernets:
+    eth0:
+      match:
+        macaddress: "52:55:55:16:23:a7"
+      nameservers:
+        addresses:
+        - 192.168.5.3
+      dhcp-identifier: "mac"
+      dhcp4: true
+      dhcp4-overrides:
+        route-metric: 200
+      set-name: "eth0"
+    lima0:
+      addresses:
+        - 192.168.105.101/24
+```
+
+`sudo netplan apply`
+
 #### Kubernetes API server
 Kubernetes API server is available via VIP address `192.168.105.100`.
 
@@ -94,6 +123,11 @@ It is possible to expose Kubernetes services via `NodePort` to `macOS` host. Ful
 Actual services with `type: NodePort` will be available on `macOS` host via `node IP` address of any Control Plane or Worker nodes of a cluster (not via VIP address) and assigned `NodePort` value for a service.
 
 ### Troubleshooting socket_vmnet related issues
+
+https://lima-vm.io/docs/config/network/vmnet/#socket_vmnet
+
+https://github.com/lima-vm/socket_vmnet?tab=readme-ov-file#from-source
+
 Update sudoers config and _config/networks.yaml file.
 Currently it is neccessary to replace `socketVMNet` field in `~/.lima/_config/networks.yaml` with absolute path, instead of symbolic link and generate sudoers configuration to able to execute `limactl start`.
 
